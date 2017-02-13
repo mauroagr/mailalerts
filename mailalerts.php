@@ -108,13 +108,16 @@ class MailAlerts extends Module
 
 			$sql = 'CREATE TABLE IF NOT EXISTS `'._DB_PREFIX_.MailAlert::$definition['table'].'`
 				(
+                    `id_mailalert_customer_oos` int(10) unsigned NOT NULL AUTO_INCREMENT,
 					`id_customer` int(10) unsigned NOT NULL,
 					`customer_email` varchar(128) NOT NULL,
 					`id_product` int(10) unsigned NOT NULL,
 					`id_product_attribute` int(10) unsigned NOT NULL,
 					`id_shop` int(10) unsigned NOT NULL,
 					`id_lang` int(10) unsigned NOT NULL,
-					PRIMARY KEY  (`id_customer`,`customer_email`,`id_product`,`id_product_attribute`,`id_shop`)
+					PRIMARY KEY (`id_mailalert_customer_oos`),
+                    KEY `customer` (`id_customer`,`customer_email`),
+                    KEY `ids` (`id_product`,`id_product_attribute`,`id_shop`)
 				) ENGINE='._MYSQL_ENGINE_.' DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci';
 
 			if (!Db::getInstance()->execute($sql))
